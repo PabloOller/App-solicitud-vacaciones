@@ -1,0 +1,422 @@
+openapi: 3.0.3
+info:
+  title: UsuarionViewNext - OpenAPI 3.0
+  description: ""
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- url: http://localhost:8080
+paths:
+  /login:
+    get:
+      tags:
+      - Usuario
+      summary: loggear usuario
+      description: Aquí se va a loguear el usuario.
+      operationId: loginGET
+      parameters:
+      - name: idviewnext
+        in: header
+        description: Coge la id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: pass
+        in: header
+        description: Coge la contraseña
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: No hay fallos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+        "404":
+          description: No se encuentra el usuario
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+        "500":
+          description: Error en la petición
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+      x-swagger-router-controller: Usuario
+  /perfilUser/{idusuario}:
+    get:
+      tags:
+      - Usuario
+      summary: ver el perfil
+      description: Aquí se va a ver el perfil del usuario.
+      operationId: GETUsuario
+      parameters:
+      - name: idusuario
+        in: path
+        description: Escribe la id
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: No hay fallos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+        "404":
+          description: No se encuentra el usuario
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+        "500":
+          description: Error en la petición
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+      x-swagger-router-controller: Usuario
+  /vacaciones/nueva/{idusuario}:
+    post:
+      tags:
+      - Vacaciones
+      summary: Crea una nueva solicitud
+      description: Crea una nueva solicitud
+      operationId: postPeticion
+      parameters:
+      - name: idusuario
+        in: path
+        description: Escribe la id del usuario
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Vacaciones'
+      responses:
+        "200":
+          description: No hay fallos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vacaciones'
+                x-content-type: application/json
+        "404":
+          description: No se hizo la peticion
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+      x-swagger-router-controller: Vacaciones
+  /Vacaciones/list/{idusuario}:
+    get:
+      tags:
+      - Vacaciones
+      summary: Obtiene el listado de las de un usuario
+      description: ""
+      operationId: getAllVacacionesUSER
+      parameters:
+      - name: idusuario
+        in: path
+        description: Escribe la id
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: No hay fallos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vacaciones'
+                x-content-type: application/json
+        "404":
+          description: No se hizo la peticion
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+      x-swagger-router-controller: Vacaciones
+  /Vacaciones/encontrar/{idvacaciones}:
+    get:
+      tags:
+      - Vacaciones
+      summary: Obtiene el listado de las de un usuario
+      description: ""
+      operationId: getVacacion
+      parameters:
+      - name: idvacaciones
+        in: path
+        description: Escribe la id
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: No hay fallos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vacaciones'
+                x-content-type: application/json
+        "404":
+          description: No se hizo la peticion
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+      x-swagger-router-controller: Vacaciones
+  /Vacaciones/listAll:
+    get:
+      tags:
+      - Vacaciones
+      summary: Obtiene el listado de las de un usuario
+      description: ""
+      operationId: getAllVacaciones
+      parameters: []
+      responses:
+        "200":
+          description: No hay fallos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vacaciones'
+                x-content-type: application/json
+        "404":
+          description: No se hizo la peticion
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+      x-swagger-router-controller: Vacaciones
+  /Vacaciones/modificar/{idvacaciones}:
+    put:
+      tags:
+      - Vacaciones
+      summary: Update Vacaciones
+      description: Modifica la fecha y el estado de las vacaciones
+      operationId: putVacaciones
+      parameters:
+      - name: idvacaciones
+        in: path
+        description: Escribe la id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Vacaciones'
+      responses:
+        "200":
+          description: No hay fallos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vacaciones'
+                x-content-type: application/json
+        "404":
+          description: No se hizo la peticion
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+      x-swagger-router-controller: Vacaciones
+  /Vacaciones/eliminar/{id}:
+    delete:
+      tags:
+      - Vacaciones
+      summary: Delete Peticion
+      description: Elimina la peticion de unas vacaciones
+      operationId: deletePeticion
+      parameters:
+      - name: id
+        in: path
+        description: Escribe la id e visitas
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+        "404":
+          description: No se hizo la peticion
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+      x-swagger-router-controller: Vacaciones
+components:
+  schemas:
+    Usuario:
+      type: object
+      properties:
+        IdUsuario:
+          type: integer
+          format: int64
+          example: 1
+        IdViewNext:
+          type: integer
+          format: int64
+          example: 6003653
+        Nombre:
+          type: string
+          example: Pablo
+        Apellido1:
+          type: string
+          example: Oller
+        Apellido2:
+          type: string
+          example: Perez
+        IdProyecto:
+          type: integer
+          format: int64
+          example: 1
+        IdPem:
+          type: integer
+          format: int64
+          example: 1
+        Pass:
+          type: string
+          example: "1234"
+        correo:
+          type: string
+          example: "pablo.oller@viewnext.com"
+        telefono:
+          type: integer
+          example: 612345678
+        diasVacacionales:
+          type: integer
+          example: 22
+      example:
+        IdUsuario: 1
+        IdViewNext: 6003653
+        Nombre: Pablo
+        Apellido1: Oller
+        Apellido2: Pérez
+        IdProyecto: 1
+        IdPem: 1
+        Pass: "1234"
+        correo: pablo.oller@viewnext.com
+        telefono: 612345678
+        diasVacacionales: 22
+
+      xml:
+        name: Usuario
+    Vacaciones:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        IdUsuario:
+          type: integer
+          format: int64
+        fecha:
+          type: string
+          example: 15/06/2023
+        estado:
+          type: string
+          example: Aprobada
+        tipo:
+          type: string
+          example: Vacaciones
+      example:
+        id: 0
+        IdUsuario: 6
+        fecha: 15/06/2023
+        estado: Aprobada
+        tipo: Vacaciones
+      xml:
+        name: Vacaciones
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+      example:
+        name: name
+        id: 0
+      xml:
+        name: tag
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      example:
+        code: 0
+        type: type
+        message: message
+      xml:
+        name: '##default'
+  requestBodies:
+    UsuarioArray:
+      description: List of Usuario object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Usuario'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
